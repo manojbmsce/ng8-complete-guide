@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ng8-complete-guide';
+
+  feature:string;
+
+  OnNavItemClicked(feature: string){
+      this.feature = feature;
+  }
 }
