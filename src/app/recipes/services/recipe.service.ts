@@ -20,7 +20,7 @@ export class RecipeService {
     new Recipe(
       "Test recipe another ", 
       " another test description", 
-      "https://cdn.pixabay.com/photo/2016/06/15/19/09/food-1459693_960_720.jpg",
+      "https://torange.biz/photo/38/IMAGE/pizza-health-recipe-38014.jpg",
       [
         new Ingredient('c', 12),
         new Ingredient('d', 25),])
@@ -30,6 +30,10 @@ export class RecipeService {
 
   getRecipes(){
     return this.recipes.slice();
+  }
+
+  getRecipe(index: number){
+    return this.recipes[index];
   }
 
   recipeSelected = new EventEmitter<Recipe>();
