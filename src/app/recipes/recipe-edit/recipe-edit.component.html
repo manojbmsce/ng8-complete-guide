@@ -27,7 +27,9 @@
             </div>
             <div class="form-group" formArrayName="ingredients">
                 <label for="ingredients">Ingredients</label>
-                <div class="row" [formGroupName]="i" *ngFor="let ingredientctl of recipeEditForm.get('ingredients').controls; let i = index">
+                <div class="row" [formGroupName]="i" 
+                *ngFor="let ingredientctl of recipeEditForm.get('ingredients').controls; let i = index"
+                style="margin-top: 10px;">
                     <div class="col-xs-8">
                         <input type="text" class="form-control" formControlName="name">
                     </div>
@@ -38,10 +40,16 @@
                         <button class="btn btn-danger">X</button>
                     </div>
                 </div>
+                <hr>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <button class="btn btn-success" (click)="addIngredient()" type="button">Add Ingredient</button>
+                    </div>
+                </div>
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <button class="btn btn-primary" type="submit">Submit</button>
+                    <button class="btn btn-primary" type="submit" [disabled]="recipeEditForm.invalid" style="margin-right: 10px">Submit</button>
                     <button class="btn btn-danger" type="button">Cancel</button>
                 </div>
             </div>
