@@ -8,10 +8,17 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class RecipeService {
+  replaceRecipes(recipes: Recipe[]) {
+    this.recipes= recipes.slice();
+    this.recipesChanged.next(this.recipes);
+  }
 
   recipesChanged = new Subject<Recipe[]>();
 
-  private recipes: Recipe[] = [
+  private recipes: Recipe[] = 
+  [];
+  /*
+  [
     new Recipe(
       "Test recipe", 
       " a test description", 
@@ -27,7 +34,7 @@ export class RecipeService {
       [
         new Ingredient('c', 12),
         new Ingredient('d', 25),])
-  ];
+  ];*/
 
   constructor(private shoppingService: ShoppingService) { }
 

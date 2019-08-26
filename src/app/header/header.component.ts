@@ -1,4 +1,6 @@
 import { Component, OnInit} from '@angular/core';
+import { DataStorageService } from '../shared/services/data-storage.service';
+import { RecipeService } from '../recipes/services/recipe.service';
 
 @Component({
   selector: 'app-header',
@@ -7,10 +9,17 @@ import { Component, OnInit} from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dataStorageService: DataStorageService) { }
 
   ngOnInit() {
   }
   
+  onSaveData() {
+    this.dataStorageService.saveRecipes();
+  }
+
+  onFetchData() {
+    this.dataStorageService.fetchRecipes().subscribe();
+  }
 
 }
