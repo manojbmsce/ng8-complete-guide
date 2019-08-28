@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { throwError, Subject } from 'rxjs';
+import { User } from './user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
+  loggedInUserSubject = new Subject<User>();
 
   constructor(private http: HttpClient) { }
 
@@ -18,7 +21,10 @@ export class AuthService {
         password: password,
         returnSecureToken: true
       }
-      ).pipe(catchError(this.handleError));
+      ).pipe(
+        catchError(this.handleError),
+        tap(this.handleAuthentication.bind(this))
+      );
   }
 
   signIn(email:string, password: string) {
@@ -29,7 +35,25 @@ export class AuthService {
         password: password,
         returnSecureToken: true
       }
-    ).pipe(catchError(this.handleError));
+    ).pipe(
+      catchError(this.handleError),
+      tap(this.handleAuthentication.bind(this))
+      );
+  }
+
+  private handleAuthentication(authResponseData: AuthResponseData) {
+    let expiryDate = new Date(
+      new Date().getTime() + (+authResponseData.expiresIn * 1000)
+    );
+
+    let user = new User(
+      authResponseData.email,
+      authResponseData.localId,
+      authResponseData.idToken,
+      expiryDate
+    );
+    this.loggedInUserSubject.next(user);
+
   }
 
   private handleError(errorResponse: HttpErrorResponse){

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ɵSWITCH_COMPILE_NGMODULE__POST_R3__ } fr
 import { NgForm } from '@angular/forms';
 import { AuthService, AuthResponseData } from './auth.service';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -15,7 +16,7 @@ export class AuthComponent implements OnInit {
   isLoading = false;
   errorMessage: string;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -39,6 +40,7 @@ export class AuthComponent implements OnInit {
     authObservable.subscribe((response)=> {
         this.isLoading = false;
         console.log(response);
+        this.router.navigate(['/recipes']);
       },error => {
         this.isLoading = false;
         this.errorMessage = error;

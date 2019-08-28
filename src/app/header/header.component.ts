@@ -1,6 +1,8 @@
 import { Component, OnInit} from '@angular/core';
 import { DataStorageService } from '../shared/services/data-storage.service';
 import { RecipeService } from '../recipes/services/recipe.service';
+import { AuthService } from '../auth/auth/auth.service';
+import { User } from '../auth/auth/user.model';
 
 @Component({
   selector: 'app-header',
@@ -9,9 +11,14 @@ import { RecipeService } from '../recipes/services/recipe.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private dataStorageService: DataStorageService) { }
+  isAuthenticated = false;
+
+  constructor(private dataStorageService: DataStorageService, private authService: AuthService) { }
 
   ngOnInit() {
+    this.authService.loggedInUserSubject.subscribe((user: User) =>{
+        this.isAuthenticated = !!user;
+    });
   }
   
   onSaveData() {
