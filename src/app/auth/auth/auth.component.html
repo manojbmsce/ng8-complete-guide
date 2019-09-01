@@ -3,11 +3,13 @@
         <div *ngIf="isLoading">
             <app-loading-spinner></app-loading-spinner>
         </div>
-        <div class="row" *ngIf="errorMessage">
+        <!--<div class="row" *ngIf="errorMessage">
             <div class="col-xs-12">
                 <span class="alert alert-danger">{{errorMessage}}</span>
             </div>
         </div>
+        -->
+        <app-alert [message]="errorMessage" (closeAlert)="OnCloseAlert()"></app-alert>
         <br>
         <div class="row">
             <div class="col-xs-12">

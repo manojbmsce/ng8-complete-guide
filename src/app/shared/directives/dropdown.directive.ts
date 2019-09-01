@@ -9,7 +9,7 @@ export class DropdownDirective {
 
   constructor() { }
 
-  @HostListener('click') toggleDropdown(event: Event) {
+  @HostListener('click' , ['$event']) toggleDropdown(event: Event) {
     this.openDropDown = !this.openDropDown;
   }
 
